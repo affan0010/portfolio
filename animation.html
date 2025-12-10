@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typewriter Animation</title>
+    <style>
+        .text-container {
+            display: inline-block;
+            font-size: 2rem;
+            letter-spacing: 10px;
+            font-family: monospace;
+            position: relative;
+            z-index: -1;
+        }
+
+        .text {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 5px solid;
+            animation: typingWeb 3s steps(12) 1s backwards, backspaceWeb 2s steps(12) 4s forwards;
+        }
+
+        .text-second {
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            border-right: 5px solid;
+            opacity: 0; /* Initially invisible */
+            animation: typingGraphic 3s steps(12) 6s backwards, fadeIn 0.5s 6s forwards;
+        }
+
+        /* Typing 'Web Designer' */
+        @keyframes typingWeb {
+            from {
+                width: 0;
+            }
+            to {
+                width:44%;
+            }
+        }
+
+        /* Backspacing 'Web Designer' */
+        @keyframes backspaceWeb {
+            from {
+                width: 44%;
+            }
+            to {
+                width: 0;
+            }
+        }
+
+        /* Typing 'Graphic Designer' */
+        @keyframes typingGraphic {
+            from {
+                width: 0;
+            }
+            to {
+                width: 53%;
+            }
+        }
+
+        /* Fade in 'Graphic Designer' */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Blinking cursor */
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="text-container">
+        <p class="text">Web Designer</p>
+        <p class="text-second">Graphic Designer</p>
+    </div>
+</body>
+</html>

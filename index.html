@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Modern Portfolio</title>
+
+<!-- AOS Library -->
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+body { background: #0b0b0c; color: #eaeaea; line-height: 1.7; scroll-behavior: smooth; transition: background 0.3s, color 0.3s; }
+body.light-mode { background: #f0f0f0; color: #111; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); background: rgba(15, 15, 17, 0.65); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+header .logo { font-size: 1.6rem; font-weight: 700; letter-spacing: 1px; }
+nav a { margin-left: 35px; text-decoration: none; color: #cfcfcf; font-weight: 500; transition: 0.3s; }
+nav a:hover { color: #4cc9ff; }
+#menu-btn { display: none; font-size: 30px; cursor: pointer; }
+.hero { padding: 150px 40px; text-align: center; max-width: 900px; margin: auto; }
+.hero h1 { font-size: 3.3rem; font-weight: 700; }
+.hero h1 span { color: #4cc9ff; }
+.hero p { margin: 15px 0 30px; font-size: 1.25rem; color: #bdbdbd; min-height: 30px; }
+.btn { display: inline-block; background: linear-gradient(135deg, #4cc9ff, #3aa8d9); color: #000; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: 0.3s ease; }
+.btn:hover { opacity: 0.8; }
+section { padding: 90px 50px; max-width: 1100px; margin: auto; }
+h2 { margin-bottom: 25px; font-size: 2.2rem; letter-spacing: 0.5px; }
+.project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+.project-card { background: #141416; padding: 25px; border-radius: 12px; transition: transform 0.3s, background 0.3s; border: 1px solid rgba(255, 255, 255, 0.05); }
+.project-card:hover { transform: translateY(-8px); background: #1a1b1d; border-color: rgba(255, 255, 255, 0.15); }
+footer { text-align: center; padding: 25px; background: #0e0e10; margin-top: 60px; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+@media (max-width: 768px) { nav { display: none; flex-direction: column; background: rgba(15, 15, 17, 0.95); position: absolute; top: 80px; right: 0; width: 220px; padding: 25px; border-left: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); } nav a { margin: 18px 0; } #menu-btn { display: block; } }
+.typed-text { border-right: 2px solid #4cc9ff; padding-right: 5px; white-space: nowrap; overflow: hidden; display: inline-block; }
+
+/* Modal for Resume */
+.modal { display: none; position: fixed; z-index: 2000; padding-top: 70px; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); backdrop-filter: blur(6px); }
+.modal-content { margin: auto; display: block; max-width: 80%; max-height: 80%; border-radius: 12px; }
+.close { position: absolute; top: 30px; right: 40px; font-size: 40px; color: #fff; cursor: pointer; font-weight: bold; }
+
+/* Zoom-in hover for resume image */
+#resume-img { transition: transform 0.4s ease, box-shadow 0.4s ease; }
+#resume-img:hover { transform: scale(1.08); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+/* Download button hover */
+a[download]:hover { background:#1e6bff; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <button onclick="toggleTheme()" style="margin-right:20px;padding:8px 16px;border:none;border-radius:6px;background:#4cc9ff;color:#000;font-weight:600;cursor:pointer;">Toggle Theme</button>
+    <div class="logo">MyPortfolio</div>
+    <nav id="nav-menu">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="#blog">Blog</a>
+        <a href="#gallery">Resume</a>
+    </nav>
+    <div id="menu-btn" onclick="toggleMenu()">☰</div>
+</header>
+
+<!-- Hero -->
+<section id="home" class="hero" data-aos="fade-up">
+    <h1>Hello, I'm <span>Affan</span></h1>
+    <p class="typed-text" id="typed-text"></p>
+    <br>
+    <a class="btn" href="#projects" data-aos="zoom-in" data-aos-delay="300">View My Work</a>
+</section>
+
+<!-- About -->
+<section id="about" data-aos="fade-up">
+    <h2>About Me</h2>
+    <p>I’m a passionate designer who creates clean, modern, and user-focused digital experiences.</p>
+    <br>
+    <h3>Skills</h3>
+    <ul>
+        <li>Graphic Designer</li>
+        <li>Web Designer</li>
+        <li>Ethical Hacker</li>
+    </ul>
+</section>
+
+<!-- Projects -->
+<section id="projects" data-aos="fade-up">
+    <h2>Projects</h2>
+    <div class="project-grid">
+        <div class="project-card" data-aos="fade-right">Portfolio Website</div>
+        <div class="project-card" data-aos="fade-left" data-aos-delay="100">Home design</div>
+        <div class="project-card" data-aos="fade-right" data-aos-delay="200">Spinify</div>
+        <div class="project-card" data-aos="fade-left" data-aos-delay="300">Shopify</div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" data-aos="fade-up">
+    <h2>Contact</h2>
+    <p>If you'd like to reach out, fill out the form below or email me:</p>
+    <p>Email: <a href="mailto:affan2506f@aptechgdn.net">affan2506f@aptechgdn.net</a></p>
+    <br>
+    <form style="display:flex;flex-direction:column;gap:15px;max-width:450px;" data-aos="fade-up" data-aos-delay="100">
+        <input type="text" placeholder="Your Name" style="padding:12px;border-radius:8px;border:none;outline:none;">
+        <input type="email" placeholder="Your Email" style="padding:12px;border-radius:8px;border:none;outline:none;">
+        <textarea placeholder="Your Message" rows="5" style="padding:12px;border-radius:8px;border:none;outline:none;"></textarea>
+        <button style="padding:12px;border-radius:8px;border:none;background:#4cc9ff;color:#000;font-weight:600;cursor:pointer;">Send Message</button>
+    </form>
+</section>
+
+<!-- Blog -->
+<section id="blog" data-aos="fade-up">
+    <h2>Blog</h2>
+    <div class="project-grid">
+        <div class="project-card" data-aos="zoom-in">How I Built My Portfolio</div>
+        <div class="project-card" data-aos="zoom-in" data-aos-delay="100">Learning JavaScript</div>
+        <div class="project-card" data-aos="zoom-in" data-aos-delay="200">Why UI/UX Matters</div>
+    </div>
+</section>
+
+<!-- Resume -->
+<section id="gallery" data-aos="fade-up">
+    <h2>Resume</h2>
+    <div style="display:flex;flex-direction:column;align-items:center;margin-top:20px;gap:15px;">
+        <img 
+            src="Blue and White Modern Professional Resume.png"
+            id="resume-img"
+            style="width:500px;height:650px;border-radius:10px;object-fit:cover;cursor:pointer;"
+            data-aos="fade-up" 
+            data-aos-delay="300"
+        >
+        <a href="Blue and White Modern Professional Resume.pdf" download style="padding:10px 25px;background:#4b8bff;color:white;border-radius:8px;text-decoration:none;font-weight:600;transition:0.3s;">Download Resume</a>
+    </div>
+</section>
+
+<!-- Modal -->
+<div id="img-modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img">
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>© 2025 Affan. All rights reserved.</p>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({ once: true, duration: 800 });
+
+function toggleMenu() {
+    const menu = document.getElementById("nav-menu");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+
+function toggleTheme() { 
+    document.body.classList.toggle('light-mode'); 
+}
+
+// Typewriter Effect
+const words = ["Web Designer", "Graphic Designer", "Ethical Hacker"];
+let i = 0, j = 0, currentWord = '', isDeleting = false;
+const typedText = document.getElementById('typed-text');
+
+function type() {
+    if (i >= words.length) i = 0;
+    let fullWord = words[i];
+    if(isDeleting){ currentWord = fullWord.substring(0, j--); }
+    else{ currentWord = fullWord.substring(0, j++); }
+    typedText.textContent = currentWord;
+    if(!isDeleting && j === fullWord.length+1){ isDeleting=true; setTimeout(type,1000); }
+    else if(isDeleting && j===0){ isDeleting=false; i++; setTimeout(type,200); }
+    else{ setTimeout(type, isDeleting?60:150); }
+}
+type();
+
+// Modal Logic
+const modal = document.getElementById("img-modal");
+const modalImg = document.getElementById("modal-img");
+const resumeImg = document.getElementById("resume-img");
+const closeBtn = document.querySelector(".close");
+
+resumeImg.onclick = function () {
+    modal.style.display = "block";
+    modalImg.src = this.src;
+}
+
+closeBtn.onclick = function () {
+    modal.style.display = "none";
+}
+
+window.onclick = function (event) {
+    if(event.target === modal){
+        modal.style.display = "none";
+    }
+}
+</script>
+</body>
+</html>
