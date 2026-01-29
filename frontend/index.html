@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affan | Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<style>
+:root{
+  --accent:#4cc9ff;
+  --dark:#0b0b0c;
+  --card:#151518;
+  --light:#f2f2f2;
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+body{background:var(--dark);color:#eaeaea;line-height:1.7;transition:.3s}
+body.light{background:var(--light);color:#111}
+a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:1000;background:rgba(15,15,18,.75);backdrop-filter:blur(15px);border-bottom:1px solid rgba(255,255,255,.05);}
+.header-inner{max-width:1200px;margin:auto;padding:18px 30px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:1.6rem;font-weight:700}
+nav{display:flex;gap:30px}
+nav a{font-weight:500;color:#cfcfcf}
+nav a:hover{color:var(--accent)}
+.menu-btn{display:none;font-size:28px;cursor:pointer}
+.toggle-btn{background:var(--accent);border:none;padding:8px 14px;border-radius:6px;font-weight:600;cursor:pointer}
+.hero{text-align:center;padding:140px 30px;max-width:900px;margin:auto}
+.hero h1{font-size:3.2rem}
+.hero span{color:var(--accent)}
+.hero p{margin:15px 0 30px;font-size:1.2rem;color:#bdbdbd}
+.btn{display:inline-block;background:linear-gradient(135deg,var(--accent),#3aa8d9);color:#000;padding:14px 32px;border-radius:8px;font-weight:600}
+section{max-width:1100px;margin:auto;padding:90px 30px}
+h2{font-size:2.2rem;margin-bottom:25px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
+.card{background:var(--card);padding:25px;border-radius:12px;transition:.3s;border:1px solid rgba(255,255,255,.05)}
+.card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.15)}
+.resume-box{display:flex;flex-direction:column;align-items:center;gap:20px}
+.resume-box img{width:360px;border-radius:10px;cursor:pointer;transition:.3s}
+.resume-box img:hover{transform:scale(1.05)}
+.resume-box a{background:#4b8bff;color:#fff;padding:10px 24px;border-radius:8px;font-weight:600}
+footer{text-align:center;padding:25px;background:#0e0e10;border-top:1px solid rgba(255,255,255,.05)}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(6px)}
+.modal img{max-width:50%;margin:auto;display:block;margin-top:60px;border-radius:12px}
+.close{position:absolute;top:15px;right:25px;font-size:40px;cursor:pointer}
+@media(max-width:768px){nav{position:absolute;top:70px;right:0;background:#0f0f12;flex-direction:column;width:220px;padding:20px;display:none}.menu-btn{display:block}}
+input,textarea,button{padding:10px;margin:5px;border-radius:6px;border:none;width:300px}
+button{cursor:pointer;background:var(--accent);font-weight:bold}
+#status{margin-top:10px;font-weight:bold}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="header-inner">
+    <button class="toggle-btn" onclick="toggleTheme()">Theme</button>
+    <div class="logo">Affan</div>
+    <nav id="nav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#blog">Blog</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  </div>
+</header>
+
+<section class="hero" id="home" data-aos="fade-up">
+  <h1>Hello, I'm <span>Affan</span></h1>
+  <p id="typed"></p>
+  <a class="btn" href="#projects">View My Work</a>
+</section>
+
+<section id="about" data-aos="fade-up">
+  <h2>About Me</h2>
+  <p>Hi, my name is Affan. I am a Graphic Designer and Responsive Web Developer.</p>
+</section>
+
+<section id="projects" data-aos="fade-up">
+  <h2>Projects</h2>
+  <div class="card-grid">
+    <div class="card">Portfolio Website</div>
+    <div class="card">Interior Design</div>
+    <div class="card">Spinify</div>
+    <div class="card">Shopify Store</div>
+  </div>
+</section>
+
+<section id="blog" data-aos="fade-up">
+  <h2>Blog</h2>
+  <div class="card-grid">
+    <div class="card">How I Built My Portfolio</div>
+    <div class="card">Learning JavaScript</div>
+    <div class="card">Why UI/UX Matters</div>
+  </div>
+</section>
+
+<section id="resume" data-aos="fade-up">
+  <h2>Resume</h2>
+  <div class="resume-box">
+    <img src="resume.png" id="resumeImg" alt="Resume Preview">
+    <a href="resume.pdf" download>Download Resume</a>
+  </div>
+</section>
+
+<section id="contact" data-aos="fade-up">
+  <h2>Contact Me</h2>
+  <form id="contactForm">
+    <input type="text" id="name" placeholder="Your Name" required><br>
+    <input type="email" id="email" placeholder="Your Email" required><br>
+    <textarea id="message" placeholder="Your Message" required></textarea><br>
+    <button type="submit">Send Message</button>
+  </form>
+  <p id="status"></p>
+</section>
+
+<footer>
+  <p>© 2025 Affan</p>
+</footer>
+
+<div class="modal" id="modal">
+  <span class="close" onclick="closeModal()">×</span>
+  <img id="modalImg">
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({once:true,duration:800})
+
+// Typing text
+const words=["Web Designer","Graphic Designer","Ethical Hacker"];
+let w=0,c=0,del=false;
+const el=document.getElementById("typed");
+function type(){
+  el.textContent=words[w].slice(0,c);
+  if(!del && c++===words[w].length){del=true;setTimeout(type,800);return}
+  if(del && c--===0){del=false;w=(w+1)%words.length}
+  setTimeout(type,del?60:120)
+}
+type();
+
+// Toggle
+function toggleMenu(){const n=document.getElementById("nav");n.style.display=n.style.display==="flex"?"none":"flex"}
+function toggleTheme(){document.body.classList.toggle("light")}
+const modal=document.getElementById("modal");
+const modalImg=document.getElementById("modalImg");
+document.getElementById("resumeImg").onclick=()=>{modal.style.display="block";modalImg.src="resume.png"}
+function closeModal(){modal.style.display="none"}
+
+// Contact form
+const form=document.getElementById("contactForm");
+const status=document.getElementById("status");
+form.addEventListener("submit",async (e)=>{
+  e.preventDefault();
+  const data={name:document.getElementById("name").value,email:document.getElementById("email").value,message:document.getElementById("message").value};
+  try{
+    const res=await fetch("http://localhost:5000/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+    const result=await res.json();
+    if(result.success){status.textContent="Message sent successfully ✅";status.style.color="green";form.reset()}
+    else{status.textContent="Error sending message ❌";status.style.color="red"}
+  }catch(err){status.textContent="Backend not running ❌";status.style.color="red"}
+});
+</script>
+</body>
+</html>
