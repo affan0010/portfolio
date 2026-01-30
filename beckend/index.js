@@ -1,45 +1,48 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
+const bodyParser = require("body-parser");
+const mysql = require("mysql2");
+require("dotenv").config();
 
-const app = express();   // ✅ app is defined HERE
-const PORT = 5000;
+const app = express();
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(express.static("public")); // 👈 FRONTEND SERVED HERE
 
-// Serve frontend files
-app.use(express.static(path.join(__dirname, "../frontend")));
-
-// Home route
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+// MySQL connection
+const db = mysql.createConnection({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME
 });
 
-// Contact form route
+db.connect(err => {
+  if (err) {
+    console.error("❌ MySQL Error:", err);
+  } else {
+    console.log("✅ MySQL Connected");
+  }
+});
+
+// Contact API
 app.post("/contact", (req, res) => {
   const { name, email, message } = req.body;
 
-  if (!name || !email || !message) {
-    return res.status(400).json({
-      success: false,
-      message: "All fields are required"
-    });
-  }
-
-  console.log("📩 New Contact Message");
-  console.log("Name:", name);
-  console.log("Email:", email);
-  console.log("Message:", message);
-
-  res.json({
-    success: true,
-    message: "Message received successfully"
+  const sql = "INSERT INTO contacts (name, email, message) VALUES (?, ?, ?)";
+  db.query(sql, [name, email, message], (err) => {
+    if (err) {
+      res.status(500).json({ error: "Database error" });
+    } else {
+      res.json({ success: true });
+    }
   });
 });
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
